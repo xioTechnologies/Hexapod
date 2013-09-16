@@ -73,35 +73,24 @@ namespace Hexapod
             {
                 oscSender = new OscSender(IPAddress.Parse("169.254.1.1"), 9000);
                 oscSender.Connect();
+
                 while (true)
                 {
-                    // Discard key press buffer
-                    while (Console.KeyAvailable)
-                    {
-                        Console.ReadKey(true);
-                    }
-
-                    // Ready current key press
-                    ConsoleKey key = Console.ReadKey(true).Key;
-                    if (key == ConsoleKey.UpArrow)
+                    if (NativeKeyboard.IsKeyDown(KeyCode.Up))
                     {
                         StepForwards();
                     }
-                    else if (key == ConsoleKey.DownArrow)
+                    else if (NativeKeyboard.IsKeyDown(KeyCode.Down))
                     {
                         StepBackwards();
                     }
-                    else if (key == ConsoleKey.RightArrow)
+                    else if (NativeKeyboard.IsKeyDown(KeyCode.Right))
                     {
                         SpinRight();
                     }
-                    else if (key == ConsoleKey.LeftArrow)
+                    else if (NativeKeyboard.IsKeyDown(KeyCode.Left))
                     {
                         SpinLeft();
-                    }
-                    else 
-                    {
-                        break;
                     }
                 }
                 oscSender.Close();
